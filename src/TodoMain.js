@@ -1,12 +1,12 @@
 import './style.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import NewTask from './NewTask';
 import Task from './Task';
 import { v4 as uuidv4 } from "uuid";
-
+import useLocalStorage from './useLocalStorage';
 
 export default function TodoMain() {
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useLocalStorage("tasks", []);
     const taskNameRef = useRef();
 
     const handleAddTask = (e) => {
@@ -22,8 +22,7 @@ export default function TodoMain() {
     <div className="container">
       <h1 className="heading">What To Do?</h1>
       <div className="todo-list">
-      <NewTask handleAddTask={handleAddTask} 
-               tasks={tasks} setTasks={setTasks} 
+      <NewTask handleAddTask={handleAddTask}  
                taskNameRef={taskNameRef} />
       {tasks.map(task => {
             return <Task key={task.id} task={task} />

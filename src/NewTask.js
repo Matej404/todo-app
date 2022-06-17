@@ -9,9 +9,9 @@ export default function NewTask({ handleAddTask, taskNameRef }) {
     return(
         <div>
             <form className="form" onSubmit={handleSubmit} >
-            <input className="input" type="text" ref={taskNameRef} />
-            <input className="button" type="submit" value="Add" onClick={handleAddTask} />
-        </form>
-      </div>
+                <input className="input" type="text" ref={taskNameRef} />
+                <input className="button" type="submit" value="Add" onClick={handleAddTask} />
+            </form>
+        </div>
     )
 }

@@ -56,6 +56,10 @@ input:focus-visible {
   cursor: pointer;
 }
 
+.button span {
+  font-size: 32px;
+}
+
 .divtask {
   display: -webkit-box;
   display: -ms-flexbox;
