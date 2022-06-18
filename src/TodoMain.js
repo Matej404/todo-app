@@ -1,5 +1,5 @@
 import './style.css';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import NewTask from './NewTask';
 import Task from './Task';
 import { v4 as uuidv4 } from "uuid";
@@ -9,13 +9,19 @@ export default function TodoMain() {
     const [tasks, setTasks] = useLocalStorage("tasks", []);
     const taskNameRef = useRef();
 
-    const handleAddTask = (e) => {
+    const handleAddTask = () => {
         const name = taskNameRef.current.value;
         if (name === "") return 
         setTasks(prevTasks => {
-            return [...prevTasks, { id: uuidv4(), name: name, complete: false }]
+            return [{ id: uuidv4(), name: name, complete: false }, ...prevTasks]
         })
         taskNameRef.current.value = null;
+    }
+
+    const handleDeleteTask = ( { id } ) => {
+       setTasks(prevTasks => {
+        return prevTasks.filter(task => task.id !== id);
+       })
     }
 
   return (
@@ -25,7 +31,10 @@ export default function TodoMain() {
       <NewTask handleAddTask={handleAddTask}  
                taskNameRef={taskNameRef} />
       {tasks.map(task => {
-            return <Task key={task.id} task={task} />
+            return <Task key={task.id} 
+                         task={task}
+                         handleDeleteTask={handleDeleteTask}
+                          />
         })}
       </div>
     </div>
